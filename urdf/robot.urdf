@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<robot name="ejercicio1">
+
+  <!-- BASE -->
+  <link name="base">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.5 0.5 0.1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.5 0.5 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- LINK 1 -->
+  <link name="link_vertical">
+    <visual>
+      <origin xyz="0 0 0.25"/>
+      <geometry>
+        <box size="0.1 0.1 0.5"/>
+      </geometry> 
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- JOINT 0 -->
+  <joint name="base_to_vertical" type="revolute">
+    <parent link="base"/>
+    <child link="link_vertical"/>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="1"/>
+  </joint>
+
+  <!-- LINK 2 -->
+  <link name="link_horizontal">
+    <visual>
+      <origin xyz="0.25 0 0.05"/>
+      <geometry>
+        <box size="0.5 0.1 0.1"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <!-- JOINT 1 -->
+  <joint name="vertical_to_horizontal" type="revolute">
+    <parent link="link_vertical"/>
+    <child link="link_horizontal"/>
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="10" velocity="1"/>
+  </joint>
+
+</robot>
